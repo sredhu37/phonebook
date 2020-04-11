@@ -50,6 +50,7 @@ const App = () => {
             personsService
                 .create(newPerson)
                 .then(response => {
+                    console.log('Response returned by Backend: ', response.data);
                     setPersons(persons.concat(response.data));
                     setNewName('');
                     setNewNumber('0000000000');
