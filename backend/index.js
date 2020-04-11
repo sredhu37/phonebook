@@ -60,6 +60,7 @@ app.delete('/api/persons/:id', (req, res) => {
 });
 
 app.post('/api/persons', (req, res) => {
+    console.log("Received POST request in Backend!");
     const id = Math.floor(Math.random() * 10000);
 
     const body = req.body;
@@ -73,13 +74,15 @@ app.post('/api/persons', (req, res) => {
 
         const personAlreadyExists = persons.find(person => person.name === body.name);
         if(personAlreadyExists) {
+            console.log("Name must be unique");
             res.status(400).send({ error: 'Name must be unique' });
         } else {
             persons.push(newPerson);
-            console.error(persons);
-            res.sendStatus(200);
+            console.log("Added new person.... Listing all persons: ", persons);
+            res.status(200).send(newPerson);
         }
     } else {
+        console.log("Wrong body in POST request!");
         res.status(400).send({ error: "Wrong body in POST request!" });
     }
 });
